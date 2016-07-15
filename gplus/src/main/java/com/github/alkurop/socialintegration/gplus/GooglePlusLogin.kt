@@ -40,8 +40,7 @@ class GooglePlusLogin private constructor(val clientId: String, val callback: So
     init {
         mGso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                   .requestScopes(Scope(Scopes.PLUS_LOGIN))
-                  .requestScopes(Scope(Scopes.EMAIL))
-                  .requestServerAuthCode(clientId)
+                  .requestEmail()
                   .build()
     }
 
@@ -88,12 +87,11 @@ class GooglePlusLogin private constructor(val clientId: String, val callback: So
 
     fun onActivityResult(request: Int, result: Int, data: Intent?) {
         if (request == REQUEST_CODE) {
-            if (result == 0 ) {
+            if (result == 0) {
                 mPendingRequest = PendingRequest.NONE
                 Log.d(TAG, "user canceled login")
             }
             handleSignInResult(Auth.GoogleSignInApi.getSignInResultFromIntent(data))
-
         }
     }
 
@@ -111,17 +109,20 @@ class GooglePlusLogin private constructor(val clientId: String, val callback: So
     private fun handleSignInResult(result: GoogleSignInResult?) {
         mPendingRequest = PendingRequest.NONE
         Log.d(TAG, "signing res = ${result?.isSuccess} ")
+        signOut()
         if (result?.isSuccess ?: false) {
+            signOut()
             val token = result?.signInAccount?.serverAuthCode
-
             if (token == null) {
                 callback.onError(IllegalStateException("token == null"))
             } else {
                 callback.onSuccess(SocialType.GOOGLE_PLUS, token)
             }
+
         } else {
             callback.onError(IllegalStateException("signing result  == failed"))
         }
+
     }
 
     private fun disconnect() {
@@ -150,11 +151,11 @@ class GooglePlusLogin private constructor(val clientId: String, val callback: So
     }
 
     private fun executeSignInRequest() {
-        val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
         if (mActivity != null) {
-            mActivity?.startActivityForResult(signInIntent, REQUEST_CODE);
+            mActivity?.startActivityForResult(signInIntent, REQUEST_CODE)
         } else if (mFragment.isAdded()) {
-            mFragment?.startActivityForResult(signInIntent, REQUEST_CODE);
+            mFragment?.startActivityForResult(signInIntent, REQUEST_CODE)
         } else {
             callback.onError(mFragment.getStateError())
         }

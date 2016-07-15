@@ -48,8 +48,8 @@ class SocialLoginExampleActivity : AppCompatActivity() {
 
                 // don't forget to finish social session when log out from user account
                 when (type) {
-                    SocialType.FACEBOOK -> facebookLogin.signOut();
-                    SocialType.GOOGLE_PLUS ->{/* googleLogin.signOut()*/}
+                    SocialType.FACEBOOK -> facebookLogin.signOut()
+                    SocialType.GOOGLE_PLUS -> googleLogin.signOut()
                     SocialType.TWITTER -> twitterLogin.signOut()
                 }
             }

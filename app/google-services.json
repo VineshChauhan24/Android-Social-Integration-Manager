@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "468399885594",
+    "project_id": "project-2097151196991056451"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468399885594:android:7096eb9d8e68fff6",
+        "android_client_info": {
+          "package_name": "com.github.alkurop.socialintegration.demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "468399885594-ii0lfa582okopbdvic7vuijkngjjkg3d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.github.alkurop.socialintegration.demo",
+            "certificate_hash": "C559C62F9DB647012683C7771BC8E30AE27DA2E1"
+          }
+        },
+        {
+          "client_id": "468399885594-7sknropf6k4u3r8hiae6u73pl8sfrj2k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpPkdqQmR6zCBloNw713AWV45rGjz-hkY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
