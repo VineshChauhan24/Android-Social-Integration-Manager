@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.github.alkurop.socialintegration.demo">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+            android:allowBackup="false"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:name=".App"
+            android:theme="@style/AppTheme">
+        <meta-data
+                android:name="com.facebook.sdk.ApplicationId"
+                android:value="@string/facebook_app_id"/>
+        <meta-data
+                android:name="io.fabric.ApiKey"
+                android:value="4aae25af2081154334599c1ad33d7a5623cf878e"/>
+
+        <activity
+                android:name="com.facebook.FacebookActivity"
+                android:configChanges="orientation|navigation|screenSize|screenLayout|layoutDirection"
+                android:screenOrientation="sensorPortrait"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity android:name=".SocialLoginExampleActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

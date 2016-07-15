@@ -1,0 +1,65 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'com.novoda.bintray-release'
+
+android {
+
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "com.android.support:appcompat-v7:$supportVersion"
+    compile "com.google.android.gms:play-services-auth:$services_version"
+
+    compile project(path: ':base')
+}
+
+kapt {
+    generateStubs = true
+}
+
+buildscript {
+    repositories {
+
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.3.4'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+publish {
+    groupId = 'com.github.alkurop'
+    artifactId = 'socialintegration-glus'
+    publishVersion = "$publish_version"
+    desc = 'A library containing base module of social integration for android. Google Plus module'
+    licences = ['MIT']
+    website = 'https://github.com/alkurop/SI'
+}
+
+allprojects {
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+    }
+}
