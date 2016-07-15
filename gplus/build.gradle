@@ -50,7 +50,7 @@ buildscript {
 
 publish {
     groupId = 'com.github.alkurop'
-    artifactId = 'socialintegration-glus'
+    artifactId = 'socialintegration-gplus'
     publishVersion = "$publish_version"
     desc = 'A library containing base module of social integration for android. Google Plus module'
     licences = ['MIT']
