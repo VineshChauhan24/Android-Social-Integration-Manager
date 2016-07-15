@@ -40,7 +40,8 @@ class GooglePlusLogin private constructor(val clientId: String, val callback: So
     init {
         mGso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                   .requestScopes(Scope(Scopes.PLUS_LOGIN))
-                  .requestEmail()
+                  .requestScopes(Scope(Scopes.EMAIL))
+                  .requestServerAuthCode(clientId)
                   .build()
     }
 
