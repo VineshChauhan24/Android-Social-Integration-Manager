@@ -26,8 +26,8 @@ import com.google.android.gms.common.api.Scope
  */
 
 
-class GooglePlusLogin private constructor(val clientId: String, val callback: SocialCallback) : GoogleApiClient.ConnectionCallbacks,
-          GoogleApiClient.OnConnectionFailedListener {
+class GooglePlusLogin private constructor(  clientId: String?, val callback: SocialCallback) : GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
 
     private val REQUEST_CODE = 555
     private val TAG = GooglePlusLogin::class.java.simpleName
@@ -38,11 +38,18 @@ class GooglePlusLogin private constructor(val clientId: String, val callback: So
     private var mFragment: Fragment? = null
 
     init {
-        mGso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                  .requestScopes(Scope(Scopes.PLUS_LOGIN))
-                  .requestScopes(Scope(Scopes.EMAIL))
-                  .requestServerAuthCode(clientId)
-                  .build()
+        if (clientId != null) {
+            mGso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestScopes(Scope(Scopes.PLUS_LOGIN))
+                    .requestScopes(Scope(Scopes.EMAIL))
+                    .requestServerAuthCode(clientId)
+                    .build()
+        } else {
+            mGso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestScopes(Scope(Scopes.PLUS_LOGIN))
+                    .requestScopes(Scope(Scopes.EMAIL))
+                    .build()
+        }
     }
 
     constructor(fra: Fragment, id: String, callback: SocialCallback) : this(id, callback) {
@@ -66,10 +73,10 @@ class GooglePlusLogin private constructor(val clientId: String, val callback: So
             return
         }
         mGoogleApiClient = GoogleApiClient.Builder(context)
-                  .addApi(Auth.GOOGLE_SIGN_IN_API, mGso)
-                  .addConnectionCallbacks(this)
-                  .addOnConnectionFailedListener(this)
-                  .build();
+                .addApi(Auth.GOOGLE_SIGN_IN_API, mGso)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
     }
 
     fun signIn() {
