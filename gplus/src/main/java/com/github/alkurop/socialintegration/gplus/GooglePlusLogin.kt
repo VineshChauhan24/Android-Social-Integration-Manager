@@ -52,12 +52,12 @@ class GooglePlusLogin private constructor(  clientId: String?, val callback: Soc
         }
     }
 
-    constructor(fra: Fragment, id: String, callback: SocialCallback) : this(id, callback) {
+    constructor(fra: Fragment, id: String?, callback: SocialCallback) : this(id, callback) {
         mFragment = fra
         initClient()
     }
 
-    constructor(act: Activity, id: String, callback: SocialCallback) : this(id, callback) {
+    constructor(act: Activity, id: String?, callback: SocialCallback) : this(id, callback) {
         mActivity = act
         initClient()
     }
