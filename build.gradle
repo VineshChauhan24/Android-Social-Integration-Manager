@@ -2,7 +2,7 @@
 
 buildscript {
 
-    ext.publish_version = "0.0.2"
+    ext.publish_version = "0.0.3"
 
     ext.kotlin_version = '1.0.3'
     ext.supportVersion = "23.4.0"
