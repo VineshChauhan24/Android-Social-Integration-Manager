@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import com.github.alkurop.socialintegration.base.SocialCallback
+import com.github.alkurop.socialintegration.base.SocialModel
 import com.github.alkurop.socialintegration.base.SocialType
 import com.github.alkurop.socialintegration.facebook.FacebookLogin
 import com.github.alkurop.socialintegration.gplus.GooglePlusLogin
@@ -43,11 +44,11 @@ class SocialLoginExampleActivity : AppCompatActivity() {
 
     private fun initSocialCallback() {
         socialCallback = object : SocialCallback {
-            override fun onSuccess(type: SocialType, token: String, secret: String?) {
-                Log.d(TAG, "Social login success: ${type.name} , token: $token")
+            override fun onSuccess(model: SocialModel) {
+                Log.d(TAG, "Social login success: $model")
 
                 // don't forget to finish social session when log out from user account
-                when (type) {
+                when (model.socialType) {
                     SocialType.FACEBOOK -> facebookLogin.signOut()
                     SocialType.GOOGLE_PLUS -> googleLogin.signOut()
                     SocialType.TWITTER -> twitterLogin.signOut()

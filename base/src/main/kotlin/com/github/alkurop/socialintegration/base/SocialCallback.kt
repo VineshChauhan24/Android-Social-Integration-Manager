@@ -4,7 +4,7 @@ package com.github.alkurop.socialintegration.base
  * Created by alkurop on 15.07.16.
  */
 interface SocialCallback {
-    fun onSuccess(type: SocialType, token: String, secret: String? = null)
+    fun onSuccess(model :SocialModel)
 
     fun onError(exception: Exception)
 }

@@ -26,7 +26,7 @@ import com.google.android.gms.common.api.Scope
  */
 
 
-class GooglePlusLogin private constructor(  clientId: String?, val callback: SocialCallback) : GoogleApiClient.ConnectionCallbacks,
+class GooglePlusLogin private constructor(clientId: String?, val callback: SocialCallback) : GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
     private val REQUEST_CODE = 555
@@ -41,12 +41,14 @@ class GooglePlusLogin private constructor(  clientId: String?, val callback: Soc
         if (clientId != null) {
             mGso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestScopes(Scope(Scopes.PLUS_LOGIN))
+                    .requestScopes(Scope(Scopes.PLUS_ME))
                     .requestScopes(Scope(Scopes.EMAIL))
                     .requestServerAuthCode(clientId)
                     .build()
         } else {
             mGso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestScopes(Scope(Scopes.PLUS_LOGIN))
+                    .requestScopes(Scope(Scopes.PLUS_ME))
                     .requestScopes(Scope(Scopes.EMAIL))
                     .build()
         }
@@ -76,7 +78,7 @@ class GooglePlusLogin private constructor(  clientId: String?, val callback: Soc
                 .addApi(Auth.GOOGLE_SIGN_IN_API, mGso)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
-                .build();
+                .build()
     }
 
     fun signIn() {
@@ -124,9 +126,23 @@ class GooglePlusLogin private constructor(  clientId: String?, val callback: Soc
             if (token == null) {
                 callback.onError(IllegalStateException("token == null"))
             } else {
-                callback.onSuccess(SocialType.GOOGLE_PLUS, token)
+                val email = result?.signInAccount!!.email
+                var photoUrl: String? = null
+                if (result?.signInAccount?.photoUrl != null) {
+                    photoUrl = String.format(result!!.signInAccount!!.photoUrl!!.toString())
+                }
+                val id = result!!.signInAccount!!.id
+                val displayName = result.signInAccount!!.displayName
+                callback.onSuccess(SocialModel(
+                        SocialType.GOOGLE_PLUS,
+                        token,
+                        null,
+                        id!!,
+                        photoUrl,
+                        displayName,
+                        email)
+                )
             }
-
         } else {
             callback.onError(IllegalStateException("signing result  == failed"))
         }

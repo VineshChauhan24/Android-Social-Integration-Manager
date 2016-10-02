@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import com.github.alkurop.socialintegration.base.SocialCallback
+import com.github.alkurop.socialintegration.base.SocialModel
 import com.github.alkurop.socialintegration.base.SocialType
 import com.twitter.sdk.android.Twitter
 import com.twitter.sdk.android.core.*
@@ -22,8 +23,8 @@ class TwitterLogin private constructor(var callback: SocialCallback) {
     }
 
     fun signOut() {
-        Twitter.getSessionManager().clearActiveSession();
-        Twitter.logOut();
+        Twitter.getSessionManager().clearActiveSession()
+        Twitter.logOut()
     }
 
     fun signIn() {
@@ -44,7 +45,15 @@ class TwitterLogin private constructor(var callback: SocialCallback) {
                     callback.onError(IllegalArgumentException("Tweeter returned empty account"))
                 } else {
                     try {
-                        callback.onSuccess(SocialType.TWITTER, result.data.authToken.token, result.data.authToken.secret)
+                        callback.onSuccess(SocialModel(
+                                SocialType.TWITTER,
+                                result.data.authToken.token,
+                                result.data.authToken.secret,
+                                result.data.userId.toString(),
+                                null,
+                                result.data.userName,
+                                null)
+                        )
                     } catch(e: IllegalArgumentException) {
                         callback.onError(e)
                     }

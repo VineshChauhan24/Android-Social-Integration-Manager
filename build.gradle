@@ -9,7 +9,7 @@ buildscript {
     ext.dagger_version = "2.0.2"
     ext.okHttpVersion = "3.2.0"
     ext.retrofitVersion = "2.0.2"
-    ext.services_version = "9.2.1"
+    ext.services_version = "9.0.0"
     ext.stetho_version = "1.3.1"
     ext.facebook_version = '4.11.0'
     ext.mockitoVersion = "2.0.52-beta"
