@@ -3,17 +3,17 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
-
     repositories {
         mavenCentral()
         jcenter()
     }
-    
+
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
     }
