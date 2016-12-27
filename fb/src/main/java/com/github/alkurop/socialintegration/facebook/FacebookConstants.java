@@ -4,7 +4,7 @@ package com.github.alkurop.socialintegration.facebook;
  * Created by alkurop on 12/27/16.
  */
 
-public class JFacebookConstants {
+public class FacebookConstants {
     public static final String id = "id";
     public static final String name = "name";
     public static final String email = "email";
@@ -14,7 +14,7 @@ public class JFacebookConstants {
 
     public static final String public_profile = "public_profile";
 
-    private JFacebookConstants () {
+    private FacebookConstants () {
         //no instance
     }
 }

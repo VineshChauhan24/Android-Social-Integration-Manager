@@ -10,17 +10,17 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import com.github.alkurop.socialintegration.base.*
-import com.github.alkurop.socialintegration.facebook.JFacebookLogin
-import com.github.alkurop.socialintegration.gplus.JGooglePlusLogin
+import com.github.alkurop.socialintegration.facebook.FacebookLogin
+import com.github.alkurop.socialintegration.gplus.GooglePlusLogin
 import com.github.alkurop.socialintegration.twitter.TwitterLogin
 import kotlinx.android.synthetic.main.activity_main.*
 
 class SocialLoginExampleActivity : AppCompatActivity() {
     val TAG = SocialLoginExampleActivity::class.java.simpleName
-    lateinit var facebookLogin: JFacebookLogin
+    lateinit var facebookLogin: FacebookLogin
     lateinit var twitterLogin: TwitterLogin
-    lateinit var googleLogin: JGooglePlusLogin
-    lateinit var socialCallback: JSocialCallback
+    lateinit var googleLogin: GooglePlusLogin
+    lateinit var socialCallback: SocialCallback
     lateinit var facebookButton: View
     lateinit var twitterButton: View
     lateinit var googleButton: View
@@ -41,8 +41,8 @@ class SocialLoginExampleActivity : AppCompatActivity() {
     }
 
     private fun initSocialCallback() {
-        socialCallback = object : JSocialCallback {
-            override fun onSuccess(model: JSocialModel) {
+        socialCallback = object : SocialCallback {
+            override fun onSuccess(model: SocialModel) {
                 Log.d(TAG, "Social login success: $model")
 
                 // don't forget to finish social session when log out from user account
@@ -60,9 +60,9 @@ class SocialLoginExampleActivity : AppCompatActivity() {
     }
 
     private fun initSocialNetworks() {
-        facebookLogin = JFacebookLogin(this, socialCallback)
+        facebookLogin = FacebookLogin(this, socialCallback)
         twitterLogin = TwitterLogin(this, socialCallback)
-        googleLogin = JGooglePlusLogin(this, getString(R.string.googlePlus_client_id), socialCallback)
+        googleLogin = GooglePlusLogin(this, getString(R.string.googlePlus_client_id), socialCallback)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

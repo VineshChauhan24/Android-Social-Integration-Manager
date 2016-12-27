@@ -9,9 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
-import com.github.alkurop.socialintegration.base.JFragmentUtils;
-import com.github.alkurop.socialintegration.base.JSocialCallback;
-import com.github.alkurop.socialintegration.base.JSocialModel;
+import com.github.alkurop.socialintegration.base.FragmentUtils;
+import com.github.alkurop.socialintegration.base.SocialCallback;
+import com.github.alkurop.socialintegration.base.SocialModel;
 import com.github.alkurop.socialintegration.base.SocialType;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -28,13 +28,13 @@ import com.google.android.gms.common.api.Status;
  * Created by alkurop on 12/27/16.
  */
 
-public class JGooglePlusLogin implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
+public class GooglePlusLogin implements GoogleApiClient.OnConnectionFailedListener, GoogleApiClient.ConnectionCallbacks {
     public static final int REQUEST_CODE = 555;
-    public static final String TAG = JGooglePlusLogin.class.getSimpleName();
+    public static final String TAG = GooglePlusLogin.class.getSimpleName();
     private final Activity mActivity;
     private final Fragment mFragment;
     private final Type mType;
-    private final JSocialCallback mCallback;
+    private final SocialCallback mCallback;
     private final String clientId;
     private GoogleSignInOptions mGso;
     private GoogleApiClient mGoogleApiClient;
@@ -53,7 +53,7 @@ public class JGooglePlusLogin implements GoogleApiClient.OnConnectionFailedListe
 
     }
 
-    public JGooglePlusLogin (final Activity activity, String clientId, JSocialCallback callback) {
+    public GooglePlusLogin (final Activity activity, String clientId, SocialCallback callback) {
         this.mActivity = activity;
         this.mType = Type.Activity;
         this.mFragment = null;
@@ -63,7 +63,7 @@ public class JGooglePlusLogin implements GoogleApiClient.OnConnectionFailedListe
         initClient();
     }
 
-    public JGooglePlusLogin (final Fragment fragment, String clientId, JSocialCallback callback) {
+    public GooglePlusLogin (final Fragment fragment, String clientId, SocialCallback callback) {
         this.mFragment = fragment;
         this.mActivity = null;
         this.mType = Type.Fragment;
@@ -97,10 +97,10 @@ public class JGooglePlusLogin implements GoogleApiClient.OnConnectionFailedListe
                 context = mActivity;
                 break;
             case Fragment:
-                if (!JFragmentUtils.isFragmentAdded(mFragment)) {
+                if (!FragmentUtils.isFragmentAdded(mFragment)) {
 
                 } else {
-                    mCallback.onError(JFragmentUtils.getFragmentStateError());
+                    mCallback.onError(FragmentUtils.getFragmentStateError());
                     return;
                 }
                 break;
@@ -185,7 +185,7 @@ public class JGooglePlusLogin implements GoogleApiClient.OnConnectionFailedListe
                 String id = signInAccount.getId();
                 String displayName = signInAccount.getDisplayName();
                 mCallback.onSuccess(
-                          new JSocialModel(
+                          new SocialModel(
                                     SocialType.GOOGLE_PLUS)
                                     .setToken(token)
                                     .setUserId(id)
@@ -213,11 +213,11 @@ public class JGooglePlusLogin implements GoogleApiClient.OnConnectionFailedListe
                 mActivity.startActivityForResult(signInIntent, REQUEST_CODE);
                 break;
             case Fragment:
-                if (JFragmentUtils.isFragmentAdded(mFragment)) {
+                if (FragmentUtils.isFragmentAdded(mFragment)) {
 
                     mFragment.startActivityForResult(signInIntent, REQUEST_CODE);
                 } else {
-                    mCallback.onError(JFragmentUtils.getFragmentStateError());
+                    mCallback.onError(FragmentUtils.getFragmentStateError());
 
                 }
 

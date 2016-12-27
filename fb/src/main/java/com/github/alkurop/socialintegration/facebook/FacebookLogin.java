@@ -15,8 +15,8 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.github.alkurop.socialintegration.base.JSocialCallback;
-import com.github.alkurop.socialintegration.base.JSocialModel;
+import com.github.alkurop.socialintegration.base.SocialCallback;
+import com.github.alkurop.socialintegration.base.SocialModel;
 import com.github.alkurop.socialintegration.base.SocialType;
 import java.util.ArrayList;
 import org.json.JSONException;
@@ -26,20 +26,20 @@ import org.json.JSONObject;
  * Created by alkurop on 12/27/16.
  */
 
-public class JFacebookLogin {
-    public static final String TAG = JFacebookLogin.class.getSimpleName();
+public class FacebookLogin {
+    public static final String TAG = FacebookLogin.class.getSimpleName();
     private final CallbackManager mFbCallbackManager;
     private final Activity mActivity;
     private final Fragment mFragment;
     private final Type mType;
-    private final JSocialCallback mCallback;
+    private final SocialCallback mCallback;
 
     private enum Type {
         Fragment,
         Activity
     }
 
-    public JFacebookLogin (final Activity activity, JSocialCallback callback) {
+    public FacebookLogin (final Activity activity, SocialCallback callback) {
         mFbCallbackManager = com.facebook.CallbackManager.Factory.create();
         this.mActivity = activity;
         this.mType = Type.Activity;
@@ -48,7 +48,7 @@ public class JFacebookLogin {
         registerCallback();
     }
 
-    public JFacebookLogin (final Fragment fragment, JSocialCallback callback) {
+    public FacebookLogin (final Fragment fragment, SocialCallback callback) {
         mFbCallbackManager = com.facebook.CallbackManager.Factory.create();
         this.mFragment = fragment;
         this.mActivity = null;
@@ -90,15 +90,15 @@ public class JFacebookLogin {
 
     private void signInFragment () {
         ArrayList<String> permissions = new ArrayList<>();
-        permissions.add(JFacebookConstants.email);
-        permissions.add(JFacebookConstants.public_profile);
+        permissions.add(FacebookConstants.email);
+        permissions.add(FacebookConstants.public_profile);
         LoginManager.getInstance().logInWithReadPermissions(mFragment, permissions);
     }
 
     private void signInActivity () {
         ArrayList<String> permissions = new ArrayList<>();
-        permissions.add(JFacebookConstants.email);
-        permissions.add(JFacebookConstants.public_profile);
+        permissions.add(FacebookConstants.email);
+        permissions.add(FacebookConstants.public_profile);
         LoginManager.getInstance().logInWithReadPermissions(mActivity, permissions);
     }
 
@@ -111,14 +111,14 @@ public class JFacebookLogin {
             @Override public void onCompleted (final JSONObject obj, final GraphResponse response) {
                 if (response.getError() == null) {
                     try {
-                        String id = obj.getString(JFacebookConstants.id);
-                        String name = obj.optString(JFacebookConstants.name);
-                        String email = obj.optString(JFacebookConstants.email);
+                        String id = obj.getString(FacebookConstants.id);
+                        String name = obj.optString(FacebookConstants.name);
+                        String email = obj.optString(FacebookConstants.email);
                         String picture = "";
 
-                        if (obj.has(JFacebookConstants.picture)) {
+                        if (obj.has(FacebookConstants.picture)) {
                             try {
-                                picture = obj.getJSONObject(JFacebookConstants.picture)
+                                picture = obj.getJSONObject(FacebookConstants.picture)
                                           .getJSONObject("data")
                                           .optString("url");
                             }
@@ -130,7 +130,7 @@ public class JFacebookLogin {
                         if (TextUtils.isEmpty(id) || TextUtils.isEmpty(accessToken.getToken())) {
                         } else {
                             mCallback.onSuccess(
-                                      new JSocialModel(
+                                      new SocialModel(
                                                 SocialType.FACEBOOK)
                                                 .setToken(accessToken.getToken())
                                                 .setUserId(id)
@@ -150,11 +150,11 @@ public class JFacebookLogin {
 
         GraphRequest request = GraphRequest.newMeRequest(accessToken, callback);
         Bundle params = new Bundle();
-        params.putString(JFacebookConstants.fields, String.format("%s,%s,%s,%s.type(large)",
-                                                                  JFacebookConstants.id,
-                                                                  JFacebookConstants.name,
-                                                                  JFacebookConstants.email,
-                                                                  JFacebookConstants.picture));
+        params.putString(FacebookConstants.fields, String.format("%s,%s,%s,%s.type(large)",
+                                                                 FacebookConstants.id,
+                                                                 FacebookConstants.name,
+                                                                 FacebookConstants.email,
+                                                                 FacebookConstants.picture));
         request.setParameters(params);
         request.executeAsync();
     }

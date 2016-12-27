@@ -4,7 +4,7 @@ package com.github.alkurop.socialintegration.base;
  * Created by alkurop on 12/27/16.
  */
 
-public class JSocialModel {
+public class SocialModel {
     private final   SocialType socialType;
     private   String token;
     private   String secret;
@@ -13,36 +13,36 @@ public class JSocialModel {
     private   String avatar;
     private   String email;
 
-    public JSocialModel (final SocialType socialType) {
+    public SocialModel (final SocialType socialType) {
         this.socialType = socialType;
     }
 
-    public JSocialModel setAvatar (final String avatar) {
+    public SocialModel setAvatar (final String avatar) {
         this.avatar = avatar;
         return this;
     }
 
-    public JSocialModel setEmail (final String email) {
+    public SocialModel setEmail (final String email) {
         this.email = email;
         return this;
     }
 
-    public JSocialModel setSecret (final String secret) {
+    public SocialModel setSecret (final String secret) {
         this.secret = secret;
         return this;
     }
 
-    public JSocialModel setToken (final String token) {
+    public SocialModel setToken (final String token) {
         this.token = token;
         return this;
     }
 
-    public JSocialModel setUserId (final String userId) {
+    public SocialModel setUserId (final String userId) {
         this.userId = userId;
         return this;
     }
 
-    public JSocialModel setUserName (final String userName) {
+    public SocialModel setUserName (final String userName) {
         this.userName = userName;
         return this;
     }

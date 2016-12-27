@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
  * Created by alkurop on 12/27/16.
  */
 
-public class JFragmentUtils {
+public class FragmentUtils {
     public static boolean isFragmentAdded (Fragment fragment) {
         return fragment != null && fragment.isAdded();
     }
