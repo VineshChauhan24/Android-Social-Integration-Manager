@@ -11,7 +11,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import com.github.alkurop.socialintegration.base.*
 import com.github.alkurop.socialintegration.facebook.JFacebookLogin
-import com.github.alkurop.socialintegration.gplus.GooglePlusLogin
+import com.github.alkurop.socialintegration.gplus.JGooglePlusLogin
 import com.github.alkurop.socialintegration.twitter.TwitterLogin
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,7 +19,7 @@ class SocialLoginExampleActivity : AppCompatActivity() {
     val TAG = SocialLoginExampleActivity::class.java.simpleName
     lateinit var facebookLogin: JFacebookLogin
     lateinit var twitterLogin: TwitterLogin
-    lateinit var googleLogin: GooglePlusLogin
+    lateinit var googleLogin: JGooglePlusLogin
     lateinit var socialCallback: JSocialCallback
     lateinit var facebookButton: View
     lateinit var twitterButton: View
@@ -62,7 +62,7 @@ class SocialLoginExampleActivity : AppCompatActivity() {
     private fun initSocialNetworks() {
         facebookLogin = JFacebookLogin(this, socialCallback)
         twitterLogin = TwitterLogin(this, socialCallback)
-        googleLogin = GooglePlusLogin(this, getString(R.string.googlePlus_client_id), socialCallback)
+        googleLogin = JGooglePlusLogin(this, getString(R.string.googlePlus_client_id), socialCallback)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
