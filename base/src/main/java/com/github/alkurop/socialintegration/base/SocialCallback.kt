@@ -8,9 +8,3 @@ interface SocialCallback {
 
     fun onError(exception: Exception)
 }
-
-enum class SocialType {
-    GOOGLE_PLUS,
-    FACEBOOK,
-    TWITTER
-}
